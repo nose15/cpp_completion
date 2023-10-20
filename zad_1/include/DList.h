@@ -8,18 +8,20 @@ template<typename T>
 class DList
 {
 private:
-    Node<T> startNode;
-    Node<T> endNode;
-    size_t size;
+    Node<T> * startNode;
+    Node<T> * endNode;
+    size_t list_size{};
 
 public:
-    DList<T>(std::initializer_list<T>);
+    DList(std::initializer_list<T>);
     T operator[](size_t) const;
     T& operator[](size_t);
-    T* Append(T);
-    T* Remove(T);
-    size_t GetSize() const;
+    Node<T> * Append(T);
+    Node<T> * Remove(T);
+    void Print() const;
+    [[nodiscard]] size_t GetSize() const;
+
 };
 
-
+#include "../src/DList.cpp"
 #endif //DLIST_H
