@@ -4,6 +4,12 @@
 #include <iostream>
 #include "Node.h"
 
+// Użycie template<typename T> umożliwia wykorzystanie listy do różnych typów danych
+// Dzieje się tak ze względu na to, że w momencie kompilacji, T zostaje zastąpione przez typ danych nadany podczas inicjalizacji
+// Np. dla DList<int>, kompilator zamieni wszystkie wystąpienia 'T' na 'int'
+
+// Plik nagłówkowy zawierający definicję klasy DList zawierającej wskaźniki do pierwszego i ostatniego węzła oraz metody do
+// manipulacji oraz nawigacji pomiędzy węzłami
 template<typename T>
 class DList
 {
@@ -26,4 +32,4 @@ public:
 };
 
 #include "../src/DList.cpp"
-#endif 
+#endif //DLIST_H
