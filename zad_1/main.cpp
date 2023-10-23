@@ -29,30 +29,22 @@ private:
 
 int main()
 {
-    
-
-    
     GeometricShape square("Square", 10, 20);
     GeometricShape triangle("Triangle", 8, 16);
     GeometricShape pentagon("Pentagon", 91, 12);
 
-    
     DList<GeometricShape> shapeList = {square, triangle, pentagon};
 
     GeometricShape triangle2("Triangle 2", 10, 129);
-
     
     shapeList.Append(triangle2);
     shapeList.Print();
 
-    
     shapeList.RemoveByIndex(2);
     shapeList.Print();
 
-    
     std::cout << shapeList[1] << std::endl;
 
-    
     GeometricShape hexagon("Hexagon", 12, 123);
     shapeList[1] = hexagon;
 
