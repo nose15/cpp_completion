@@ -21,12 +21,10 @@ DList<T>::DList(std::initializer_list<T> initializerList)
             this->startNode = node;
             firstSet = true;
         }
-
         prev_pointer = node;
         this->endNode = node;
     }
 }
-
 
 template<typename T>
 T DList<T>::operator[](size_t index) const
@@ -42,6 +40,7 @@ T& DList<T>::operator[](size_t index)
     return result->GetValue();
 }
 
+
 template<typename T>
 Node<T> * DList<T>::Append(T val)
 {
@@ -49,6 +48,7 @@ Node<T> * DList<T>::Append(T val)
     endNode->setNextPtr(newNode);
     endNode = newNode;
     list_size++;
+    
     return endNode;
 }
 
@@ -57,44 +57,13 @@ Node<T> * DList<T>::RemoveByValue(T val)
 {
     Node<T> * current_node = startNode;
 
-    if (current_node->GetValue() == val)
-    {
-        Node<T> * next = current_node->next_node();
-        next->setPrevPtr(nullptr);
-        startNode = next;
-
-        list_size--;
-        return next;
-    }
-
     while (current_node != endNode)
     {
         if (current_node->GetValue() == val)
         {
-            Node<T> * prev = current_node->prev_node();
-            Node<T> * next = current_node->next_node();
-
-            next->setPrevPtr(prev);
-            prev->setNextPtr(next);
-
-            current_node->setPrevPtr(nullptr);
-            current_node->setNextPtr(nullptr);
-
-            list_size--;
-            delete current_node;
-            return next;
+            return RemoveElement(current_node);
         }
         current_node = current_node->next_node();
-    }
-
-    if (endNode->GetValue() == val)
-    {
-        Node<T> * prev = current_node->prev_node();
-        prev->setNextPtr(nullptr);
-        endNode = prev;
-
-        list_size--;
-        return prev;
     }
 
     return nullptr;
@@ -103,40 +72,10 @@ Node<T> * DList<T>::RemoveByValue(T val)
 template<typename T>
 Node<T> * DList<T>::RemoveByIndex(int index)
 {
-    if (index == 0)
-    {
-        Node<T> * next = startNode->next_node();
-        next->setPrevPtr(nullptr);
-        startNode = next;
-
-        list_size--;
-        return next;
-    }
-
-    if (index == (list_size - 1))
-    {
-        Node<T> * prev = endNode->prev_node();
-        prev->setNextPtr(nullptr);
-        endNode = prev;
-
-        list_size--;
-        return prev;
-    }
-
     Node<T> * currentNode = GetElementByIndex(index);
+    Node<T> * node = RemoveElement(currentNode);
 
-    Node<T> * prevNode = currentNode->prev_node();
-    Node<T> * nextNode = currentNode->next_node();
-
-    prevNode->setNextPtr(nextNode);
-    nextNode->setPrevPtr(prevNode);
-
-    currentNode->setPrevPtr(nullptr);
-    currentNode->setNextPtr(nullptr);
-    delete currentNode;
-
-    list_size--;
-    return nextNode;
+    return node;
 }
 
 template<typename T>
@@ -157,12 +96,10 @@ Node<T> * DList<T>::GetElementByIndex(int index)
     if (index > (list_size - 1) - index)
     {
         currentNode = endNode;
-
         for (int i = list_size - 1; i > index; --i)
         {
             currentNode = currentNode->prev_node();
         }
-
         return currentNode;
     }
 
@@ -172,8 +109,45 @@ Node<T> * DList<T>::GetElementByIndex(int index)
     {
         currentNode = currentNode->next_node();
     }
-
     return currentNode;
+}
+
+template<typename T>
+Node<T> * DList<T>::RemoveElement(Node<T> * node)
+{
+    if (node == startNode)
+    {
+        Node<T> * nextNode = startNode->next_node();
+        nextNode->setPrevPtr(nullptr);
+        startNode = nextNode;
+
+        list_size--;
+        delete node;
+        return startNode;
+    }
+    else if (node == endNode)
+    {
+        Node<T> * prevNode = endNode->prev_node();
+        prevNode->setNextPtr(nullptr);
+        endNode = prevNode;
+
+        list_size--;
+        delete node;
+        return endNode;
+    }
+
+    Node<T> * prevNode = node->prev_node();
+    Node<T> * nextNode = node->next_node();
+
+    prevNode->setNextPtr(nextNode);
+    nextNode->setPrevPtr(prevNode);
+
+    node->setPrevPtr(nullptr);
+    node->setNextPtr(nullptr);
+
+    list_size--;
+    delete node;
+    return nextNode;
 }
 
 template<typename T>

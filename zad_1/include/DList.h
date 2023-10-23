@@ -12,6 +12,7 @@ private:
     Node<T> * endNode;
     size_t list_size{};
     Node<T> * GetElementByIndex(int);
+    Node<T> * RemoveElement(Node<T> *);
 
 public:
     DList(std::initializer_list<T>);
@@ -25,4 +26,4 @@ public:
 };
 
 #include "../src/DList.cpp"
-#endif //DLIST_H
+#endif 

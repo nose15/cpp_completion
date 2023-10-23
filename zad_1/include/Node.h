@@ -1,7 +1,6 @@
 #ifndef NODE_H
 #define NODE_H
 
-
 template<typename T>
 class Node {
 private:
@@ -13,7 +12,6 @@ public:
     Node<T>(T, Node<T> *, Node<T> *);
     Node<T>& operator=(const Node<T>&);
 
-//    ~Node<T>();
     Node<T> * next_node() const;
     Node<T> * prev_node() const;
     void setNextPtr(Node<T> *);

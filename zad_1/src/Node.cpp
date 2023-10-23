@@ -1,16 +1,11 @@
 #include "../include/Node.h"
 #include <string>
 
-
 template<typename T>
-Node<T>::Node()
-{
-    std::cout << "default_used" << std::endl;
-}
+Node<T>::Node() = default;
 
 template<typename T>
 Node<T>::Node(T value, Node<T> * prev_ptr, Node<T> * next_ptr) : value(value), next_pointer(next_ptr), prev_pointer(prev_ptr) {}
-
 
 template<typename T>
 Node<T> &Node<T>::operator=(const Node<T> & other) {
@@ -21,7 +16,6 @@ Node<T> &Node<T>::operator=(const Node<T> & other) {
     }
     return *this;
 }
-
 
 template<typename T>
 void Node<T>::setNextPtr(Node<T> * nextPtr)
