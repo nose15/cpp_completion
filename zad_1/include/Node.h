@@ -11,14 +11,7 @@ private:
 public:
     Node<T>();
     Node<T>(T, Node<T> *, Node<T> *);
-    Node<T>& operator=(const Node<T>& other) {
-        if (this != &other) {
-            this->value = other.value;
-            this->prev_pointer = other.prev_pointer;
-            this->next_pointer = other.next_pointer;
-        }
-        return *this;
-    }
+    Node<T>& operator=(const Node<T>&);
 
 //    ~Node<T>();
     Node<T> * next_node() const;

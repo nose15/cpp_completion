@@ -13,6 +13,17 @@ Node<T>::Node(T value, Node<T> * prev_ptr, Node<T> * next_ptr) : value(value), n
 
 
 template<typename T>
+Node<T> &Node<T>::operator=(const Node<T> & other) {
+    if (this != &other) {
+        this->value = other.value;
+        this->prev_pointer = other.prev_pointer;
+        this->next_pointer = other.next_pointer;
+    }
+    return *this;
+}
+
+
+template<typename T>
 void Node<T>::setNextPtr(Node<T> * nextPtr)
 {
     this->next_pointer = nextPtr;

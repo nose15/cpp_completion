@@ -31,28 +31,14 @@ DList<T>::DList(std::initializer_list<T> initializerList)
 template<typename T>
 T DList<T>::operator[](size_t index) const
 {
-    Node<T> * result = startNode;
-    if (index == 0) return result->GetValue();
-
-    for (int i = 1; i <= index; i++)
-    {
-        result = result->next_node();
-    }
-
+    Node<T> * result = GetElementByIndex(index);
     return result->GetValue();
 }
 
 template<typename T>
 T& DList<T>::operator[](size_t index)
 {
-    Node<T> * result = startNode;
-    if (index == 0) return result->GetValue();
-
-    for (int i = 1; i <= index; i++)
-    {
-        result = result->next_node();
-    }
-
+    Node<T> * result = GetElementByIndex(index);
     return result->GetValue();
 }
 
@@ -62,11 +48,12 @@ Node<T> * DList<T>::Append(T val)
     auto * newNode = new Node<T>(val, endNode, nullptr);
     endNode->setNextPtr(newNode);
     endNode = newNode;
+    list_size++;
     return endNode;
 }
 
 template<typename T>
-Node<T> * DList<T>::Remove(T val)
+Node<T> * DList<T>::RemoveByValue(T val)
 {
     Node<T> * current_node = startNode;
 
@@ -75,6 +62,8 @@ Node<T> * DList<T>::Remove(T val)
         Node<T> * next = current_node->next_node();
         next->setPrevPtr(nullptr);
         startNode = next;
+
+        list_size--;
         return next;
     }
 
@@ -91,6 +80,8 @@ Node<T> * DList<T>::Remove(T val)
             current_node->setPrevPtr(nullptr);
             current_node->setNextPtr(nullptr);
 
+            list_size--;
+            delete current_node;
             return next;
         }
         current_node = current_node->next_node();
@@ -101,6 +92,8 @@ Node<T> * DList<T>::Remove(T val)
         Node<T> * prev = current_node->prev_node();
         prev->setNextPtr(nullptr);
         endNode = prev;
+
+        list_size--;
         return prev;
     }
 
@@ -108,9 +101,79 @@ Node<T> * DList<T>::Remove(T val)
 }
 
 template<typename T>
+Node<T> * DList<T>::RemoveByIndex(int index)
+{
+    if (index == 0)
+    {
+        Node<T> * next = startNode->next_node();
+        next->setPrevPtr(nullptr);
+        startNode = next;
+
+        list_size--;
+        return next;
+    }
+
+    if (index == (list_size - 1))
+    {
+        Node<T> * prev = endNode->prev_node();
+        prev->setNextPtr(nullptr);
+        endNode = prev;
+
+        list_size--;
+        return prev;
+    }
+
+    Node<T> * currentNode = GetElementByIndex(index);
+
+    Node<T> * prevNode = currentNode->prev_node();
+    Node<T> * nextNode = currentNode->next_node();
+
+    prevNode->setNextPtr(nextNode);
+    nextNode->setPrevPtr(prevNode);
+
+    currentNode->setPrevPtr(nullptr);
+    currentNode->setNextPtr(nullptr);
+    delete currentNode;
+
+    list_size--;
+    return nextNode;
+}
+
+template<typename T>
 size_t DList<T>::GetSize() const
 {
-    return this->list_size;
+    this->list_size;
+}
+
+template<typename T>
+Node<T> * DList<T>::GetElementByIndex(int index)
+{
+    if (index == 0) return startNode;
+    if (index == list_size - 1) return endNode;
+    if (index < 0 || index > (list_size - 1)) return nullptr;
+
+    Node<T> * currentNode;
+
+    if (index > (list_size - 1) - index)
+    {
+        currentNode = endNode;
+
+        for (int i = list_size - 1; i > index; --i)
+        {
+            currentNode = currentNode->prev_node();
+        }
+
+        return currentNode;
+    }
+
+    currentNode = startNode;
+
+    for (int i = 0; i < index; ++i)
+    {
+        currentNode = currentNode->next_node();
+    }
+
+    return currentNode;
 }
 
 template<typename T>
@@ -118,8 +181,7 @@ void DList<T>::Print() const
 {
     Node<T> * current_node = startNode;
     std::cout << "[";
-    while (true)
-    {
+    while (true) {
         std::cout << current_node->GetValue();
         current_node = current_node->next_node();
 
