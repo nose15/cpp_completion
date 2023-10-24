@@ -81,7 +81,7 @@ Node<T> * DList<T>::RemoveByIndex(int index)
 template<typename T>
 size_t DList<T>::GetSize() const
 {
-    this->list_size;
+    return this->list_size;
 }
 
 template<typename T>

@@ -1,5 +1,5 @@
-#ifndef DLIST_H
-#define DLIST_H
+#ifndef ZALICZENIE_DLIST_H
+#define ZALICZENIE_DLIST_H
 
 #include <iostream>
 #include "Node.h"
@@ -26,4 +26,4 @@ public:
 };
 
 #include "../src/DList.cpp"
-#endif 
+#endif //ZALICZENIE_DLIST_H

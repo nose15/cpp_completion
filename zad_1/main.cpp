@@ -36,7 +36,7 @@ int main()
     DList<GeometricShape> shapeList = {square, triangle, pentagon};
 
     GeometricShape triangle2("Triangle 2", 10, 129);
-    
+
     shapeList.Append(triangle2);
     shapeList.Print();
 

@@ -1,5 +1,5 @@
-#ifndef NODE_H
-#define NODE_H
+#ifndef ZALICZENIE_NODE_H
+#define ZALICZENIE_NODE_H
 
 template<typename T>
 class Node {
@@ -20,4 +20,4 @@ public:
 };
 
 #include "../src/Node.cpp"
-#endif //NODE_H
+#endif //ZALICZENIE_NODE_H
