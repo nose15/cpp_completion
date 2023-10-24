@@ -2,6 +2,8 @@
 #define INTFUNCTIONS_H
 
 
+// Klasa z przykładowymi statycznymi metodami, które w pliku main są zawarte w strukturach, które z kolei
+// znajdują się w tablicy z funkcjami
 class IntFunctions
 {
 public:

@@ -3,6 +3,8 @@
 
 #include "Function.h"
 
+
+// Klasa function array manager ułatwia pracę z tablicą zawierającą struktury z funkcjami
 class FunctionArrayManager
 {
 private:
